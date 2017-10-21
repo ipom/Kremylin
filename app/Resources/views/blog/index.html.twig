@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for article in articles %}
+        <article>
+            <header>
+                <h3>{{ article.title }}</h3>
+            </header>
+            {{ article.content }}
+            <footer>Published on : {{ article.publicationDate|date('D-d-m-Y H:i:s')}}</footer>
+        </article>
+    {% endfor %}
+{% endblock %}

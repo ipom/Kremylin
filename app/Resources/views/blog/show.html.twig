@@ -1,0 +1,9 @@
+{% block title %}{{ article.title }}{% endblock %}
+{% block body %}
+    <header>
+        <h3>{{ article.title }}</h3>
+    </header>
+    <article>
+        {{ article.content }}
+    </article>
+{%  endblock %}
