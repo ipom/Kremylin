@@ -4,7 +4,8 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Kremylin!{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="index.css"/>
+            <link rel="stylesheet" href="{{ asset("css/index.css") }}"/>
+            <link href='https://fonts.googleapis.com/css?family=Mrs+Sheppards' rel='stylesheet' type='text/css'>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
