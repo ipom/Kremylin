@@ -21,9 +21,9 @@ $.ready(function(){
         element: document.body,
         engine: engine,
         options: {
-            width: 800,
-            height: 400,
-            wireframes: false
+            width: $(window).width(),
+            height: $(window).width(),
+            wireframes: true
         }
     });
 
