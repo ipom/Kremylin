@@ -18,6 +18,14 @@ Krem.prototype.generateConstraints = function(dnaConstraints, parts){
             for(let k =0; k<ijConstraints.length; k++){
                 ijConstraints[k].bodyA = parts[i];
                 ijConstraints[k].bodyB = parts[j];
+                ijConstraints[k].pointA = {
+                    x: Math.floor((parts[i].bounds.max.x-parts[i].bounds.min.x) * ijConstraints[k].pivotA.x),
+                    y: Math.floor((parts[i].bounds.max.y-parts[i].bounds.min.y) * ijConstraints[k].pivotA.y)
+                };
+                ijConstraints[k].pointB = {
+                    x: Math.floor((parts[j].bounds.max.x-parts[j].bounds.min.x) * ijConstraints[k].pivotB.x),
+                    y: Math.floor((parts[j].bounds.max.y-parts[j].bounds.min.y) * ijConstraints[k].pivotB.y)
+                };
                 constraints.push(Matter.Constraint.create(ijConstraints[k]));
             }
         }
@@ -66,13 +74,13 @@ Krem.prototype.randomDNA = function(){
             let nbConstraints = Math.floor(Matter.Common.random(0,Constants.NB_CONSTRAINT_MAX));
             for(let k=0; k<nbConstraints; k++){
                 let constraint = {
-                    pointA: {
-                        x: Math.floor(Matter.Common.random(0, Constants.PART_MAX_WIDTH)),
-                        y: Math.floor(Matter.Common.random(0, Constants.PART_MAX_HEIGHT))
+                    pivotA: {
+                        x: Matter.Common.random(-0.5,0.5),
+                        y: Matter.Common.random(-0.5,0.5)
                     },
-                    pointB: {
-                        x: Math.floor(Matter.Common.random(0, Constants.PART_MAX_WIDTH)),
-                        y: Math.floor(Matter.Common.random(0, Constants.PART_MAX_HEIGHT))
+                    pivotB: {
+                        x: Matter.Common.random(-0.5,0.5),
+                        y: Matter.Common.random(-0.5,0.5)
                     },
                     stiffness: Matter.Common.random(0.2,1),
                     damping: Matter.Common.random(0,0.1)

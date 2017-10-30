@@ -30,13 +30,17 @@ $(document).ready(function(){
     Render.run(render);
 
     var Kremy = new Krem();
+    var Kremy = new Krem();
+    var Kremy = new Krem();
+    var Kremy = new Krem();
+    var Kremy = new Krem();
 
-    World.add(world, [Kremy.body]);
+    World.add(world, [Matter.Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50,{isStatic: true}),Kremy.body]);
 
     function run(){
         var Kremy = new Krem();
         World.add(world, [Kremy.body]);
-        setTimeout(run, 1000);
+        setTimeout(run, 5000);
     }
 
     run();
