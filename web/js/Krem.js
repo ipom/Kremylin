@@ -1,12 +1,15 @@
 var Krem = function() {
     this.dna = this.randomDNA();
     this.parts = this.generateParts(this.dna.parts);
-    this.constraints = this.generateConstraints(this.dna.constraints, this.parts);
     this.body = Matter.Composite.create({
         bodies: this.parts,
-        constraints: this.constraints,
         label: "Krem"
     });
+    let bounds = Matter.Composite.bounds();
+    Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
+
+    this.constraints = this.generateConstraints(this.dna.constraints, this.body);
+
 };
 
 
@@ -67,12 +70,12 @@ Krem.prototype.randomDNA = function(){
             for(let k=0; k<nbConstraints; k++){
                 let constraint = {
                     pointA: {
-                        x: Math.floor(Matter.Common.random(0, Constants.PART_MAX_WIDTH)),
-                        y: Math.floor(Matter.Common.random(0, Constants.PART_MAX_HEIGHT))
+                        x: Matter.Common.random(0, 1),
+                        y: Matter.Common.random(0, 1)
                     },
                     pointB: {
-                        x: Math.floor(Matter.Common.random(0, Constants.PART_MAX_WIDTH)),
-                        y: Math.floor(Matter.Common.random(0, Constants.PART_MAX_HEIGHT))
+                        x: Matter.Common.random(0, 1),
+                        y: Matter.Common.random(0, 1)
                     },
                     stiffness: Matter.Common.random(0.2,1),
                     damping: Matter.Common.random(0,0.1)

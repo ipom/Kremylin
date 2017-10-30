@@ -1,4 +1,4 @@
-$(document).ready(function(){
+//$(document).ready(function(){
     var Engine = Matter.Engine,
         Render = Matter.Render,
         Runner = Matter.Runner,
@@ -24,21 +24,40 @@ $(document).ready(function(){
         }
     });
 
+    // add mouse control
+    var mouse = Mouse.create(render.canvas);
+    var mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.2,
+            render: {
+                visible: false
+            }
+        }
+    });
+
+    World.add(world, mouseConstraint);
 
     Engine.run(engine);
 
     Render.run(render);
 
     var Kremy = new Krem();
+    var Kremy = new Krem();
+    var Kremy = new Krem();
+    var Kremy = new Krem();
 
     World.add(world, [Kremy.body]);
-
-    function run(){
+    World.add(world, [ Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50, { isStatic: true })]);
+    /*function run(){
         var Kremy = new Krem();
         World.add(world, [Kremy.body]);
         setTimeout(run, 1000);
     }
 
-    run();
-});
+    run();*/
+    var bound = Matter.Composite.bounds(Kremy.body);
+    Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
+    $("canvas").prop("style","background: transparent;");
+//});
 
