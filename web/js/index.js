@@ -49,15 +49,19 @@
 
     World.add(world, [Kremy.body]);
     World.add(world, [ Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50, { isStatic: true })]);
-    /*function run(){
+    World.add(world, [Matter.Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50,{isStatic: true}),Kremy.body]);
+
+
+    function run(){
         var Kremy = new Krem();
+        var bound = Matter.Composite.bounds(Kremy.body);
+        Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
         World.add(world, [Kremy.body]);
-        setTimeout(run, 1000);
+        setTimeout(run, 5000);
     }
 
-    run();*/
-    var bound = Matter.Composite.bounds(Kremy.body);
-    Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
+    run();
+
     $("canvas").prop("style","background: transparent;");
 //});
 

@@ -5,7 +5,7 @@ var Krem = function() {
         bodies: this.parts,
         label: "Krem"
     });
-    let bounds = Matter.Composite.bounds();
+    let bounds = Matter.Composite.bounds(this.body);
     Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
 
     this.constraints = this.generateConstraints(this.dna.constraints, this.body);
@@ -21,6 +21,14 @@ Krem.prototype.generateConstraints = function(dnaConstraints, parts){
             for(let k =0; k<ijConstraints.length; k++){
                 ijConstraints[k].bodyA = parts[i];
                 ijConstraints[k].bodyB = parts[j];
+                ijConstraints[k].pointA = {
+                    x: Math.floor((parts[i].bounds.max.x-parts[i].bounds.min.x) * ijConstraints[k].pivotA.x),
+                    y: Math.floor((parts[i].bounds.max.y-parts[i].bounds.min.y) * ijConstraints[k].pivotA.y)
+                };
+                ijConstraints[k].pointB = {
+                    x: Math.floor((parts[j].bounds.max.x-parts[j].bounds.min.x) * ijConstraints[k].pivotB.x),
+                    y: Math.floor((parts[j].bounds.max.y-parts[j].bounds.min.y) * ijConstraints[k].pivotB.y)
+                };
                 constraints.push(Matter.Constraint.create(ijConstraints[k]));
             }
         }
@@ -45,6 +53,10 @@ Krem.prototype.generateRectangle = function(part){
     return Matter.Bodies.rectangle(part.x, part.y, part.width, part.height, part.options);
 };
 
+
+/*
+* DNA functions
+*/
 Krem.prototype.randomDNA = function(){
     let dna = {};
     //Random Parts
@@ -69,13 +81,13 @@ Krem.prototype.randomDNA = function(){
             let nbConstraints = Math.floor(Matter.Common.random(0,Constants.NB_CONSTRAINT_MAX));
             for(let k=0; k<nbConstraints; k++){
                 let constraint = {
-                    pointA: {
-                        x: Matter.Common.random(0, 1),
-                        y: Matter.Common.random(0, 1)
+                    pivotA: {
+                        x: Matter.Common.random(-0.5,0.5),
+                        y: Matter.Common.random(-0.5,0.5)
                     },
-                    pointB: {
-                        x: Matter.Common.random(0, 1),
-                        y: Matter.Common.random(0, 1)
+                    pivotB: {
+                        x: Matter.Common.random(-0.5,0.5),
+                        y: Matter.Common.random(-0.5,0.5)
                     },
                     stiffness: Matter.Common.random(0.2,1),
                     damping: Matter.Common.random(0,0.1)
@@ -119,3 +131,8 @@ Krem.prototype.randomCompoundDNA = function(){
 
 };
 /*body.density*/
+
+
+/*
+ * DNA functions
+ */
