@@ -1,6 +1,6 @@
 var Constants = {
     NB_PARTS_MIN: 1,
-    NB_PARTS_MAX: 5,
+    NB_PARTS_MAX: 10,
 
     NB_PART_TYPE: 1,
 

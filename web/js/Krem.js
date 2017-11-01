@@ -1,15 +1,21 @@
+var defaultCategory = 0x0001,
+    redCategory = 0x0002,
+    greenCategory = 0x0004,
+    blueCategory = 0x0008;
+
 var Krem = function() {
     this.dna = this.randomDNA();
     this.parts = this.generateParts(this.dna.parts);
     this.body = Matter.Composite.create({
         bodies: this.parts,
-        label: "Krem"
+        label: "Krem",
+        isStatic: true
     });
-    let bounds = Matter.Composite.bounds(this.body);
-    Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
+    let bound = Matter.Composite.bounds(this.body);
+    Matter.Composite.scale(this.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
 
-    this.constraints = this.generateConstraints(this.dna.constraints, this.body);
-
+    this.constraints = this.generateConstraints(this.dna.constraints, this.parts);
+    Matter.Composite.add(this.body, this.constraints);
 };
 
 
@@ -29,6 +35,7 @@ Krem.prototype.generateConstraints = function(dnaConstraints, parts){
                     x: Math.floor((parts[j].bounds.max.x-parts[j].bounds.min.x) * ijConstraints[k].pivotB.x),
                     y: Math.floor((parts[j].bounds.max.y-parts[j].bounds.min.y) * ijConstraints[k].pivotB.y)
                 };
+                //console.log(ijConstraints[k]);
                 constraints.push(Matter.Constraint.create(ijConstraints[k]));
             }
         }
@@ -106,7 +113,10 @@ Krem.prototype.randomRectangleDNA = function(){
         width = Math.floor(Matter.Common.random(1, Constants.PART_MAX_WIDTH)),
         height = Math.floor(Matter.Common.random(1, Constants.PART_MAX_HEIGHT)),
         options = {
-
+            collisionFilter: {
+                category: redCategory,
+                mask: defaultCategory
+            }
         };
 
     return {

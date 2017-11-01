@@ -2,6 +2,7 @@
     var Engine = Matter.Engine,
         Render = Matter.Render,
         Runner = Matter.Runner,
+        Events = Matter.Events,
         Composites = Matter.Composites,
         MouseConstraint = Matter.MouseConstraint,
         Mouse = Matter.Mouse,
@@ -42,22 +43,32 @@
 
     Render.run(render);
 
-    var Kremy = new Krem();
-    var Kremy = new Krem();
-    var Kremy = new Krem();
-    var Kremy = new Krem();
+    // keep the mouse in sync with rendering
+    render.mouse = mouse;
+
+    Kremy = new Krem();
 
     World.add(world, [Kremy.body]);
     World.add(world, [ Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50, { isStatic: true })]);
-    World.add(world, [Matter.Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50,{isStatic: true}),Kremy.body]);
+    //World.add(world, [Matter.Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50,{isStatic: true}),Kremy.body]);
 
+    Events.on(engine, 'afterUpdate', function(event){
+        var time = engine.timing.timestamp;
+
+        var scale = 100 + 100*Math.sin(time*0.001);
+        var constraints = Matter.Composite.allConstraints(this.world);
+        for(var i in constraints){
+            constraints[i].length = scale;
+        }
+    });
 
     function run(){
-        var Kremy = new Krem();
+        World.remove(world, [Kremy.body]);
+        Kremy = new Krem();
         var bound = Matter.Composite.bounds(Kremy.body);
         Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
         World.add(world, [Kremy.body]);
-        setTimeout(run, 5000);
+        setTimeout(run, 10000);
     }
 
     run();
