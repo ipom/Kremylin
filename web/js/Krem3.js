@@ -72,12 +72,12 @@ class Krem {
 	    dna.parts = [];
 	    for(let i=0; i<dna.nbParts; i++){
 		let partType = Math.floor(Matter.Common.random(1, Constants.NB_PART_TYPE));
-			switch(partType){
-				case Constants.PART_TYPE_RECTANGLE:
-					let part = this.randomRectangleDNA();
-					dna.parts.push(part);
-					break;
-			}
+		switch(partType){
+		    case Constants.PART_TYPE_RECTANGLE:
+		        let part = this.randomRectangleDNA();
+		        dna.parts.push(part);
+		        break;
+		}
 	    }
 
 	    //Random constraints
@@ -121,12 +121,12 @@ class Krem {
 		};
 
 	    return {
-			partType : Constants.PART_TYPE_RECTANGLE,
-			x: x,
-			y: y,
-			width: width,
-			height: height,
-			options: options
+		partType : Constants.PART_TYPE_RECTANGLE,
+		x: x,
+		y: y,
+		width: width,
+		height: height,
+		options: options
 	    };
 	}
 }
