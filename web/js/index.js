@@ -68,7 +68,7 @@
         var bound = Matter.Composite.bounds(Kremy.body);
         Matter.Composite.scale(Kremy.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
         World.add(world, [Kremy.body]);
-        setTimeout(run, 10000);
+        setTimeout(run, 7000);
     }
 
     run();

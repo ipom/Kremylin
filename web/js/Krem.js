@@ -47,12 +47,12 @@ class Krem {
 	generateParts(dnaParts){
 	    let parts = [];
 	    for(let i=0; i<dnaParts.length; i++){
-		let part = dnaParts[i];
-		switch(part.partType){
-		    case Constants.PART_TYPE_RECTANGLE:
-		        parts.push(this.generateRectangle(part));
-		        break;
-		}
+			let part = dnaParts[i];
+			switch(part.partType){
+				case Constants.PART_TYPE_RECTANGLE:
+					parts.push(this.generateRectangle(part));
+					break;
+			}
 	    }
 	    return parts;
 	}

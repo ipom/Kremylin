@@ -1,15 +1,20 @@
 class BodyPartDNA{
     constructor(_partType, _x, _y, _width, _height, _options) {
         if (typeof(_partType) === "undefined") {
-            var _partType = BodyPartDNA.randomPartType();
+            _partType = BodyPartDNA.randomPartType();
         }
 
         if (_partType === Constants.PART_TYPE_RECTANGLE) {
-            if(typeof('_x') === "undefined"){
+            if(   typeof(_x)       === "undefined"
+                ||typeof(_y)       === "undefined"
+                ||typeof(_width)   === "undefined"
+                ||typeof(_height)  === "undefined"
+                ||typeof(_options) === "undefined"){
                 $.extend(this, BodyPartDNA.randomRectangleDNA());
-            }else {
-                $.extend(this,
-                    {
+            }
+            else{
+                $.extend(this, {
+                        partType : Constants.PART_TYPE_RECTANGLE,
                         x: _x,
                         y: _y,
                         width: _width,
@@ -18,14 +23,6 @@ class BodyPartDNA{
                     });
             }
         }
-        /*
-         partType : Constants.PART_TYPE_RECTANGLE,
-         x: x,
-         y: y,
-         width: width,
-         height: height,
-         options: options
-         */
     }
 
     static randomRectangleDNA(){
