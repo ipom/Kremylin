@@ -21,7 +21,8 @@
         options: {
             width: $(window).width(),
             height: $(window).height(),
-            wireframes: false
+            wireframes: false,
+            background: "transparent"
         }
     });
 
@@ -63,6 +64,7 @@
     });
 
     function run(){
+        $("canvas").prop("style","background: transparent;");
         World.remove(world, [Kremy.body]);
         Kremy = new Krem();
         var bound = Matter.Composite.bounds(Kremy.body);

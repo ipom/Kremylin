@@ -114,10 +114,16 @@ class Krem {
 		width = Math.floor(Matter.Common.random(1, Constants.PART_MAX_WIDTH)),
 		height = Math.floor(Matter.Common.random(1, Constants.PART_MAX_HEIGHT)),
 		options = {
-		    collisionFilter: {
-		        category: redCategory,
-		        mask: defaultCategory
-		    }
+            angle           : Matter.Common.random(0, 2*Math.PI),
+			 /*density         : Matter.Common.random(0, Constants.PART_MAX_DENSITY),
+            friction        : Matter.Common.random(0, Constants.PART_MAX_FRICTION),
+            //frictionAir     : Matter.Common.random(0, Constants.PART_MAX_FRICTIONAIR),
+            frictionStatic  : Matter.Common.random(0, Constants.PART_MAX_FRICTIONSTATIC),
+            restitution     : Matter.Common.random(0, 1),*/
+            collisionFilter : {
+                category: redCategory,
+                mask    : defaultCategory
+            }
 		};
 
 	    return {

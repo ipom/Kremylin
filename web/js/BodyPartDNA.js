@@ -1,44 +1,40 @@
 class BodyPartDNA{
-    constructor(_partType, _x, _y, _width, _height, _options) {
-        if (typeof(_partType) === "undefined") {
-            _partType = BodyPartDNA.randomPartType();
+    constructor(_partType, parameters) {
+        if (typeof(_partType) !== "undefined") {
+            this.partType = _partType;
+        }else{
+            this.partType = BodyPartDNA.randomPartType();
         }
 
-        if (_partType === Constants.PART_TYPE_RECTANGLE) {
-            if(   typeof(_x)       === "undefined"
-                ||typeof(_y)       === "undefined"
-                ||typeof(_width)   === "undefined"
-                ||typeof(_height)  === "undefined"
-                ||typeof(_options) === "undefined"){
+        if (this.partType === Constants.PART_TYPE_RECTANGLE) {
+            if(typeof(parameters) === "undefined"){
                 $.extend(this, BodyPartDNA.randomRectangleDNA());
             }
             else{
-                $.extend(this, {
-                        partType : Constants.PART_TYPE_RECTANGLE,
-                        x: _x,
-                        y: _y,
-                        width: _width,
-                        height: _height,
-                        options: _options
-                    });
+                $.extend(this, parameters);
             }
         }
     }
 
     static randomRectangleDNA(){
-        let x = Math.floor(Matter.Common.random(0, Constants.PART_MAX_X)),
-            y = Math.floor(Matter.Common.random(0, Constants.PART_MAX_Y)),
-            width = Math.floor(Matter.Common.random(1, Constants.PART_MAX_WIDTH)),
-            height = Math.floor(Matter.Common.random(1, Constants.PART_MAX_HEIGHT)),
+        let x               = Math.floor(Matter.Common.random(0, Constants.PART_MAX_X)),
+            y               = Math.floor(Matter.Common.random(0, Constants.PART_MAX_Y)),
+            width           = Math.floor(Matter.Common.random(1, Constants.PART_MAX_WIDTH)),
+            height          = Math.floor(Matter.Common.random(1, Constants.PART_MAX_HEIGHT)),
             options = {
-                collisionFilter: {
+                angle           : Matter.Common.random(0, 2*Math.PI),
+                density         : Matter.Common.random(0, Constants.PART_MAX_DENSITY),
+                friction        : Matter.Common.random(0, Constants.PART_MAX_FRICTION),
+                frictionAir     : Matter.Common.random(0, Constants.PART_MAX_FRICTIONAIR),
+                frictionStatic  : Matter.Common.random(0, Constants.PART_MAX_FRICTIONSTATIC),
+                restitution     : Matter.Common.random(0, 1),
+                collisionFilter : {
                     category: redCategory,
-                    mask: defaultCategory
+                    mask    : defaultCategory
                 }
             };
 
         return {
-            partType : Constants.PART_TYPE_RECTANGLE,
             x: x,
             y: y,
             width: width,
