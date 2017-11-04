@@ -58,7 +58,22 @@ class Krem {
 	}
 
 	generateRectangle(part){
+		console.log(Matter.Bodies.rectangle(part.x, part.y, part.width, part.height, part.options));
+		console.log(new BodyPart({
+            partType: part.partType,
+            x: part.x,
+            y: part.y,
+            width: part.width,
+            height: part.height,
+            options: part.options}));
 	    return Matter.Bodies.rectangle(part.x, part.y, part.width, part.height, part.options);
+	    /*return new BodyPart({
+				partType: part.partType,
+				x: part.x,
+				y: part.y,
+				width: part.width,
+				height: part.height,
+				options: part.options});*/
 	}
 
 
