@@ -56,11 +56,11 @@
     Events.on(engine, 'afterUpdate', function(event){
         var time = engine.timing.timestamp;
 
-        var scale = 100 + 100*Math.sin(time*0.001);
+        /*var scale = 100 + 100*Math.sin(time*0.001);
         var constraints = Matter.Composite.allConstraints(this.world);
         for(var i in constraints){
             constraints[i].length = scale;
-        }
+        }*/
     });
 
     function run(){
