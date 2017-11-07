@@ -11,5 +11,4 @@ class MuscleDNA{
         this.stiffness = Matter.Common.random(0.2,1);
         this.damping = Matter.Common.random(0,0.1);
     }
-
 }

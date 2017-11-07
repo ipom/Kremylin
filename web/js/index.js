@@ -8,8 +8,7 @@
         Mouse = Matter.Mouse,
         World = Matter.World,
         Constraint = Matter.Constraint,
-        Bodies = Matter.Bodies,
-        Body = Matter.Body;
+        Bodies = Matter.Bodies;
 
     // create engine
     var engine = Engine.create(), world = engine.world;
