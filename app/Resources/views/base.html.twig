@@ -12,17 +12,17 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            <script src="js/lib/matter.js"></script>
-            <script src="js/lib/jquery-3.2.1.min.js"></script>
-            <script src="js/lib/Krem/Constants.js"></script>
-            <script src="js/lib/Krem/BodyPartDNA.js"></script>
-            <script src="js/lib/Krem/BodyPart.js"></script>
-            <script src="js/lib/Krem/MuscleDNA.js"></script>
-            <script src="js/lib/Krem/Muscle.js"></script>
-            <script src="js/lib/Krem/BodyDNA.js"></script>
-            <script src="js/lib/Krem/Body.js"></script>
-            <script src="js/lib/Krem/Krem.js"></script>
-            <script src="js/index.js"></script>
+            <script src="{{ asset('js/lib/matter.js') }}"></script>
+            <script src="{{ asset('js/lib/jquery-3.2.1.min.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/Constants.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/BodyPartDNA.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/BodyPart.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/MuscleDNA.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/Muscle.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/BodyDNA.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/Body.js') }}"></script>
+            <script src="{{ asset('js/lib/Krem/Krem.js') }}"></script>
+            <script src="{{ asset('js/index.js') }}"></script>
         {% endblock %}
     </body>
 </html>
