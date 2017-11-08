@@ -49,17 +49,20 @@
     Kremy = new Krem();
 
     World.add(world, [Kremy.body]);
-    World.add(world, [ Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50, { isStatic: true })]);
+    World.add(world, [ Bodies.rectangle($(window).width()/2, $(window).height()+50, $(window).width(), 150, { isStatic: true })]);
+    World.add(world, [ Bodies.rectangle(0-50, $(window).height()/2, 150, $(window).height(), { isStatic: true })]);
+    World.add(world, [ Bodies.rectangle($(window).width()+50, $(window).height()/2, 150, $(window).height(), { isStatic: true })]);
+    World.add(world, [ Bodies.rectangle($(window).width()/2, 0-50, $(window).width(), 150, { isStatic: true })]);
     //World.add(world, [Matter.Bodies.rectangle($(window).width()/2, $(window).height(), $(window).width(), 50,{isStatic: true}),Kremy.body]);
 
     Events.on(engine, 'afterUpdate', function(event){
         var time = engine.timing.timestamp;
 
-        /*var scale = 100 + 100*Math.sin(time*0.001);
+        var scale = 100 + 100*Math.sin(time*0.001);
         var constraints = Matter.Composite.allConstraints(this.world);
         for(var i in constraints){
             constraints[i].length = scale;
-        }*/
+        }
     });
 
     function run(){
