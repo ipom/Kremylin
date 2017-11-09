@@ -5,7 +5,7 @@ var defaultCategory = 0x0001,
 
 class Krem {
 	constructor(){
-	    this.dna = new BodyDNA();
-	    this.body = new Body(this.dna).body;
+	    this.dna = new DNA();
+	    this.body = new Body(this.dna.bodyDNA).body;
 	}
 }
