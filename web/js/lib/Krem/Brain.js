@@ -6,9 +6,9 @@ class Brain{
 
     update(engine){
         var time = engine.timing.timestamp;
-        var scale = Math.sin(time*0.001);
+        var scale = Math.sin(time*0.001)+1.2;
         for(let i=0; i<this.outputs.length; i++){
-            this.outputs[i]=scale;
+            this.outputs[i]=scale/2;
         }
     }
 }
