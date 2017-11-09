@@ -5,22 +5,30 @@ class Nerves{
         this.nerves = this.randomNerves(this.muscles, this.brain);
     }
 
-    update(){
-        this.brain.update();
-
+    update(engine){
+        for(let i=0; i<this.nerves.length; i++){
+            let nerve = this.nerves[i];
+            nerve.muscle.contract(this.brain.outputs[nerve.brainOutput]);
+        }
     }
 
+    /**
+     * Actuellement un muscle est relié à exactement un nerf et réciproquement.
+     * Une sortie du cerveau peux être reliée à plusieurs muscles
+     * @param muscles
+     * @param brain
+     */
     randomNerves(muscles, brain){
         let nbMuscles = this.muscles.length;
         let nbBrainOutputs = this.brain.outputs.length;
-        let nbNerves = Math.floor(Matter.Common.random(0, Constants.NB_NERVES_MAX));
         let nerves = [];
-        for(let i=0; i<nbNerves; i++){
+        for(let i=0; i<nbMuscles; i++){
             nerves[i]={
-                muscle: this.muscles[Math.floor(Matter.Common.random(0,nbMuscles))],
+                muscle: this.muscles[i],
                 brainOutput: Math.floor(Matter.Common.random(0, nbBrainOutputs)),
                 coef: Matter.Common.random(0,1)
             }
         }
+        return nerves;
     }
 }
