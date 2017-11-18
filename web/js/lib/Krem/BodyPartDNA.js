@@ -22,7 +22,7 @@ class BodyPartDNA{
             width           = Math.floor(Matter.Common.random(1, Constants.PART_MAX_WIDTH)),
             height          = Math.floor(Matter.Common.random(1, Constants.PART_MAX_HEIGHT)),
             options = {
-                angle           : Matter.Common.random(0, 2*Math.PI),
+                //angle           : Matter.Common.random(0, 2*Math.PI),
                 density         : Matter.Common.random(0, Constants.PART_MAX_DENSITY),
                 friction        : Matter.Common.random(0, Constants.PART_MAX_FRICTION),
                 /*frictionAir     : Matter.Common.random(0, Constants.PART_MAX_FRICTIONAIR),*/
