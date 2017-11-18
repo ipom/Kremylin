@@ -14,5 +14,33 @@ class Muscle{
             stiffness: muscleDNA.stiffness,
             damping: muscleDNA.damping
         });
+
+        this.length = this.muscle.length; //Taille du muscle en expansion
+        this.targetLength = this.length;  //Taille du muscle demandé par le cerveau
+
+        this.lastOrderTime = 0;
+        this.contractFunction = null;
+    }
+
+    /**
+     *
+     * @param coef valeur comprise entre 0 et 1
+     */
+    contract(coef, _contractFunction){
+        this.targetLength = coef*this.length;
+
+        if(typeof(constractFunction)==='undefined'){
+            this.muscle.length = this.targetLength;
+            var _contractFunction = null;
+        }
+        this.contractFunction = _contractFunction;
+    }
+
+    update(engine){
+        //#Not yet implemented
+        if(this.contractFunction){
+            let timeNow = engine.timing.timestamp;
+            this.contractFunction(this.lastOrderTime, timeNow);
+        }
     }
 }

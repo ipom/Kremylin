@@ -20,4 +20,6 @@ var Constants = {
 
     NB_CONSTRAINT_MAX: 2,
     NB_CONSTRAINT_TYPE: 2,
+
+    NB_NERVES_MAX: this.NB_CONSTRAINT_MAX*this.NB_PARTS_MAX
 };

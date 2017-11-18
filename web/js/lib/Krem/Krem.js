@@ -5,7 +5,15 @@ var defaultCategory = 0x0001,
 
 class Krem {
 	constructor(){
-	    this.dna = new BodyDNA();
-	    this.body = new Body(this.dna).body;
+	    this.dna = new DNA();
+	    this.body = new Body(this.dna.bodyDNA);
+	    this.brain = new Brain();
+	    this.nerves = new Nerves(this.body.muscles, this.brain);
+	}
+
+	update(engine){
+		this.brain.update(engine);
+		//console.log(this.brain.outputs);
+		this.nerves.update(engine);
 	}
 }
