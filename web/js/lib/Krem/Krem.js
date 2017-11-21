@@ -7,7 +7,7 @@ class Krem {
 	constructor(){
 	    this.dna = new DNA();
 	    this.body = new Body(this.dna.bodyDNA);
-	    this.brain = new Brain();
+	    this.brain = new Brain(this.body);
 	    this.nerves = new Nerves(this.body.muscles, this.brain);
 	}
 
