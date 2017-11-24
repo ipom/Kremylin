@@ -3,12 +3,16 @@ const { Layer, Network } = window.synaptic;
 
 class Brain{
     constructor(_body){
-        let nbOutputs = Math.floor(Matter.Common.random(1,Constants.NB_CONSTRAINT_MAX));
+        this.muscles = _body.muscles;
+        this.bodyParts = _body.bodyParts;
+        let nbInputs = this.bodyParts.length*2;
+        let nbOutputs = this.muscles.length;//Math.floor(Matter.Common.random(1,Constants.NB_CONSTRAINT_MAX));
+
         this.outputs = new Array(nbOutputs);
 
-        var inputLayer = new Layer(2);
-        var hiddenLayer = new Layer(3);
-        var outputLayer = new Layer(nbOutputs);
+        let inputLayer = new Layer(nbInputs);
+        let hiddenLayer = new Layer(nbInputs+nbOutputs);
+        let outputLayer = new Layer(nbOutputs);
 
         inputLayer.project(hiddenLayer);
         hiddenLayer.project(outputLayer);
@@ -18,6 +22,10 @@ class Brain{
             hidden: [hiddenLayer],
             output: outputLayer
         });
+
+        this.outputsHistory = [];
+
+        this.learningRate = .3;
     }
 
     /*update(engine){
@@ -29,41 +37,47 @@ class Brain{
     }*/
 
     update(engine){
-        this.outputs = this.network.activate();
-        this.outputHistory.push(this.outputs);
+        let inputs = [];
+        for(let i in this.bodyParts){
+            let bodyPart = this.bodyParts[i];
+            inputs.push(bodyPart.part.position.x);
+            inputs.push(bodyPart.part.position.y);
+        }
+        this.outputs = this.treshold(this.network.activate(inputs));
+
+        console.log(this.outputs);
+        this.outputsHistory.push({inputs: inputs, outputs: this.outputs});
     }
 
+    treshold(outputs){
+        return outputs.map(function(o){
+            return (outputs>0.5)?1:0;
+        });
+    }
 
+    reward(){
+        for(let entry of this.outputsHistory){
+            //console.log(entry);
+            this.network.activate(entry.inputs);
+            //console.log(entry.outputs);
+            this.network.propagate(this.learningRate, entry.outputs);
+        }
+        this.outputsHistory = [];
+    }
+
+    punish(){
+        for(let entry of this.outputsHistory){
+            //console.log(entry.outputs);
+            let inverseOutputs = entry.outputs.map(function(o){
+                if(o!=0){
+                    return 1-o;
+                }
+            });
+
+            //console.log(inverseOutputs);
+            this.network.activate(entry.inputs);
+            this.network.propagate(this.learningRate, inverseOutputs);
+        }
+        this.outputsHistory = [];
+    }
 }
-
-
-
-
-
-
-// train the network - learn XOR
-var learningRate = .3;
-for (var i = 0; i < 20000; i++)
-{
-    // 0,0 => 0
-    myNetwork.activate([0,0]);
-    myNetwork.propagate(learningRate, [0]);
-
-    // 0,1 => 1
-    myNetwork.activate([0,1]);
-    myNetwork.propagate(learningRate, [1]);
-
-    // 1,0 => 1
-    myNetwork.activate([1,0]);
-    myNetwork.propagate(learningRate, [1]);
-
-    // 1,1 => 0
-    myNetwork.activate([1,1]);
-    myNetwork.propagate(learningRate, [0]);
-}
-
-// test the network
-console.log(myNetwork.activate([0,0])); // [0.015020775950893527]
-console.log(myNetwork.activate([0,1])); // [0.9815816381088985]
-console.log(myNetwork.activate([1,0])); // [0.9871822457132193]
-console.log(myNetwork.activate([1,1])); // [0.012950087641929467]

@@ -16,4 +16,12 @@ class Krem {
 		//console.log(this.brain.outputs);
 		this.nerves.update(engine);
 	}
+
+	reward(){
+		this.brain.reward();
+	}
+
+	punish(){
+		this.brain.punish();
+	}
 }

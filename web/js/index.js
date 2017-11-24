@@ -46,7 +46,7 @@
     // keep the mouse in sync with rendering
     render.mouse = mouse;
 
-    Kremy = new Krem();
+    for(let i=0;i<1;i++)Kremy = new Krem();
 
     World.add(world, [Kremy.body.body]);
     World.add(world, [ Bodies.rectangle($(window).width()/2, $(window).height()+50, $(window).width(), 150, { isStatic: true })]);
@@ -73,10 +73,48 @@
         var bound = Matter.Composite.bounds(Kremy.body.body);
         Matter.Composite.scale(Kremy.body.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
         World.add(world, [Kremy.body.body]);
-        setTimeout(run, 7000);
+        setTimeout(initEducation, 2000);
     }
 
     run();
+
+    var lastXPosition;
+    function initEducation(){
+        console.log("Début de l'apprentissage");
+        lastXPosition = 0;
+
+        let bps = Kremy.body.bodyParts;
+        for(let i in bps){
+            lastXPosition += bps[i].part.position.x;
+        }
+
+        lastXPosition = lastXPosition/bps.length;
+
+        setTimeout(educate, 7000);
+    }
+
+    function educate(){
+        let newXPosition = 0;
+
+        let bps = Kremy.body.bodyParts;
+        for(let i in bps){
+            newXPosition += bps[i].part.position.x;
+        }
+
+        newXPosition = newXPosition/bps.length;
+
+        if(newXPosition>lastXPosition){
+            console.log("Reward "+ newXPosition);
+            Kremy.reward();
+        }else{
+            console.log("Punish "+ newXPosition);
+            Kremy.punish();
+        }
+
+        lastXPosition = newXPosition;
+
+        setTimeout(educate, 3000);
+    }
 
     $("canvas").prop("style","background: transparent;");
 //});

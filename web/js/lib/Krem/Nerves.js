@@ -18,7 +18,7 @@ class Nerves{
      * @param muscles
      * @param brain
      */
-    randomNerves(muscles, brain){
+    /*randomNerves(muscles, brain){
         let nbMuscles = this.muscles.length;
         let nbBrainOutputs = this.brain.outputs.length;
         let nerves = [];
@@ -26,6 +26,23 @@ class Nerves{
             nerves[i]={
                 muscle: this.muscles[i],
                 brainOutput: Math.floor(Matter.Common.random(0, nbBrainOutputs)),
+                coef: Matter.Common.random(0,1)
+            }
+        }
+        return nerves;
+    }*/
+
+    /**
+     * Pour simplifier dans un premier temps, on aura autant de nerfs et de brain outputs que de muscles
+     * */
+    randomNerves(muscles, brain){
+        let nbMuscles = this.muscles.length;
+        let nbBrainOutputs = this.brain.outputs.length;
+        let nerves = [];
+        for(let i=0; i<nbMuscles; i++){
+            nerves[i]={
+                muscle: this.muscles[i],
+                brainOutput: i,//Math.floor(Matter.Common.random(0, nbBrainOutputs)),
                 coef: Matter.Common.random(0,1)
             }
         }

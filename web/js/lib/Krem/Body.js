@@ -10,7 +10,7 @@ class Body{
             isStatic: true
         });
         /**####a supprimer*/let bound = Matter.Composite.bounds(this.body);
-        /**####a supprimer*/Matter.Composite.scale(this.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
+        /**####a supprimer*/Matter.Composite.scale(this.body, 150/(bound.max.x-bound.min.x), 150/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
 
         this.muscles = this.generateMuscles(_bodyDNA.musclesDNA, this.bodyParts);
         let matterMuscles = this.muscles.map(function(m){
