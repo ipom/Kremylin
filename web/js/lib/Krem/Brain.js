@@ -25,7 +25,14 @@ class Brain{
 
         this.outputsHistory = [];
 
-        this.learningRate = .3;
+        this.learningRate = .03;
+        var that = this;
+        this.outputs[0]=1;
+        $(window).keydown(function(e){
+            that.outputs[e.which-96]=0;
+        }).keyup(function(e){
+            that.outputs[e.which-96]=1;
+        });
     }
 
     /*update(engine){
@@ -37,16 +44,17 @@ class Brain{
     }*/
 
     update(engine){
-        let inputs = [];
+        // /console.log(this.outputs);
+        /*let inputs = [];
         for(let i in this.bodyParts){
             let bodyPart = this.bodyParts[i];
             inputs.push(bodyPart.part.position.x);
             inputs.push(bodyPart.part.position.y);
         }
-        this.outputs = this.treshold(this.network.activate(inputs));
+        this.outputs = this.network.activate(inputs);
 
-        console.log(this.outputs);
-        this.outputsHistory.push({inputs: inputs, outputs: this.outputs});
+        //console.log(this.outputs);
+        this.outputsHistory.push({inputs: inputs, outputs: this.outputs});*/
     }
 
     treshold(outputs){

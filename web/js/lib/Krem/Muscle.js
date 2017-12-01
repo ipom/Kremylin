@@ -16,31 +16,30 @@ class Muscle{
         });
 
         this.length = this.muscle.length; //Taille du muscle en expansion
-        this.targetLength = this.length;  //Taille du muscle demandé par le cerveau
-
-        this.lastOrderTime = 0;
-        this.contractFunction = null;
+        this.targetLengthCoef = 1;  //Taille du muscle demandé par le cerveau
+        this.currentLengthCoef = 1;
+        this.lastStep = 0;
+        this.step = this.currentLengthCoef - this.targetLengthCoef;
     }
 
     /**
      *
      * @param coef valeur comprise entre 0 et 1
      */
-    contract(coef, _contractFunction){
-        this.targetLength = coef*this.length;
-
-        if(typeof(constractFunction)==='undefined'){
-            this.muscle.length = this.targetLength;
-            var _contractFunction = null;
+    contract(coef, nbStep){
+        if(typeof nbStep === 'undefined'){
+            nbStep = 10;
         }
-        this.contractFunction = _contractFunction;
+        this.targetLengthCoef = coef;
+        //this.muscle.length = this.length*coef;
+        this.step = (this.currentLengthCoef - this.targetLengthCoef)/nbStep;//En 100 steps on atteint la longueur de muscle souhaitée
     }
 
-    update(engine){
-        //#Not yet implemented
-        if(this.contractFunction){
-            let timeNow = engine.timing.timestamp;
-            this.contractFunction(this.lastOrderTime, timeNow);
+    update(engine) {
+        var time = engine.timing.timestamp;
+        if (this.step > 0 ? (this.currentLengthCoef > this.targetLengthCoef):(this.currentLengthCoef < this.targetLengthCoef)){
+            this.currentLengthCoef = this.currentLengthCoef - this.step;
         }
+        this.muscle.length = this.currentLengthCoef * this.length;
     }
 }

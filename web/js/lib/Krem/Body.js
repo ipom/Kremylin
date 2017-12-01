@@ -40,4 +40,10 @@ class Body{
         }
         return parts;
     }
+
+    update(engine){
+        for(var i in this.muscles){
+            this.muscles[i].update(engine);
+        }
+    }
 }

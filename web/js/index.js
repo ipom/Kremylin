@@ -57,18 +57,13 @@
 
     Events.on(engine, 'afterUpdate', function(event){
         Kremy.update(engine);
-        /*var time = engine.timing.timestamp;
-
-        var scale = 100 + 100*Math.sin(time*0.001);
-        var constraints = Matter.Composite.allConstraints(this.world);
-        for(var i in constraints){
-            constraints[i].length = scale;
-        }*/
     });
 
     function run(){
         $("canvas").prop("style","background: transparent;");
         World.remove(world, [Kremy.body.body]);
+        Kremy = new Krem();
+        Kremy = new Krem();
         Kremy = new Krem();
         var bound = Matter.Composite.bounds(Kremy.body.body);
         Matter.Composite.scale(Kremy.body.body, 100/(bound.max.x-bound.min.x), 100/(bound.max.y-bound.min.y), {x:(bound.max.x-bound.min.x)/2,y:(bound.max.y-bound.min.y)/2});
@@ -117,5 +112,6 @@
     }
 
     $("canvas").prop("style","background: transparent;");
+
 //});
 

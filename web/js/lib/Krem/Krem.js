@@ -13,6 +13,7 @@ class Krem {
 
 	update(engine){
 		this.brain.update(engine);
+		this.body.update(engine);
 		//console.log(this.brain.outputs);
 		this.nerves.update(engine);
 	}
